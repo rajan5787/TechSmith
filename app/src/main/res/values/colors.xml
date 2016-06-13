@@ -10,5 +10,6 @@
     <color name="primary_dark">#303F9F</color>
     <color name="accent">#F50056</color>
     <color name="text_primary">#FFFFFF</color>
-    <color name="bkg_card">#8C9EFF</color>
+    <color name="buttonColor">#8C9EFF</color>
+
 </resources>

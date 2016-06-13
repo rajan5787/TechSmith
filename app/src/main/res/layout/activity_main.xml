@@ -9,12 +9,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.rajan.techsmith.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+
+
     <Button
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:id="@+id/button"/>
+        android:id="@+id/button_b"
+        android:layout_height="70dp"
+        style="@style/mainscreenButton"
+        />
 </RelativeLayout>

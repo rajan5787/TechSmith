@@ -40,14 +40,12 @@ public class AttendaceList extends AppCompatActivity implements NavigationView.O
         setContentView(R.layout.activity_attendacelist);
 
         Toolbar toolbar =(Toolbar) findViewById(R.id.toolbar);
-
         toolbar.setTitle("Attendace");
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(toolbar);
+        mArrayList = new ArrayList<Attendance>();
 
         SugarContext.init(this);
-        getNewIDs();
-        mArrayList = new ArrayList<>();
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_studentlist);
         mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -55,6 +53,9 @@ public class AttendaceList extends AppCompatActivity implements NavigationView.O
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mAdapter =new Attendace_adapter(this);
         mRecyclerView.setAdapter(mAdapter);
+        getNewIDs();
+        getData();
+
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -83,7 +84,7 @@ public class AttendaceList extends AppCompatActivity implements NavigationView.O
             menuMap.put(title, start);
         }
         Log.d("Menu", drawerMenu.size() + "");
-        MenuItem mi = drawerMenu.getItem(drawerMenu.size() - 1);
+        MenuItem mi = drawerMenu.getItem(drawerMenu.size()-1);
         mi.setTitle(mi.getTitle());
 
 
@@ -147,10 +148,8 @@ public class AttendaceList extends AppCompatActivity implements NavigationView.O
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    private void getData(String e) {
-        mArrayList= (ArrayList<Attendance>) Select.from(Attendance.class)
-                .where(Condition.prop(NamingHelper.toSQLNameDefault("event")).eq(e))
-                .list();
+    private void getData() {
+        mArrayList= new ArrayList<>(Attendance.listAll(Attendance.class));
         mAdapter.setdata(mArrayList);
 
     }
