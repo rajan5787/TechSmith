@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.example.rajan.techsmith.adapter.Attendace_adapter;
 import com.example.rajan.techsmith.database.Attendance;
@@ -25,13 +26,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class AttendaceList extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class AttendaceList extends AppCompatActivity  {
 
+
+    public static int total_student = 0;
     RecyclerView mRecyclerView;
     Attendace_adapter mAdapter;
-    HashMap<String, Integer> menuMap;
     ArrayList<Attendance> mArrayList;
-
+   public static TextView student_total;
 
 
     @Override
@@ -39,10 +41,12 @@ public class AttendaceList extends AppCompatActivity implements NavigationView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendacelist);
 
-        Toolbar toolbar =(Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Attendace");
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(toolbar);
+
+        student_total = (TextView)findViewById(R.id.student_total);
         mArrayList = new ArrayList<Attendance>();
 
         SugarContext.init(this);
@@ -51,45 +55,14 @@ public class AttendaceList extends AppCompatActivity implements NavigationView.O
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter =new Attendace_adapter(this);
+        mAdapter = new Attendace_adapter(this);
         mRecyclerView.setAdapter(mAdapter);
         getNewIDs();
         getData();
-
-
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-
-        navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) this);
-        Menu drawerMenu = navigationView.getMenu();
-        Log.d("Menu", drawerMenu.size() + "");
-        Log.d("Menu", "IDs Size: " + mArrayList.size() + " : Database Size: " + Attendance.count(Attendance.class));
-        int range = 60;
-        menuMap = new HashMap<>();
-        for (int i = 0; i < mArrayList.size() / range; i++) {
-            String title = mArrayList.get(i * range).student_ID + " -- " + mArrayList.get((i + 1) * range - 1).student_ID;
-            drawerMenu.add(title);
-            menuMap.put(title, i * range);
-        }
-        if (mArrayList.size() % range != 0) {
-            int start = drawerMenu.size() * range;
-            String title = mArrayList.get(start).student_ID + " -- " + mArrayList.get(mArrayList.size() - 1).student_ID;
-            drawerMenu.add(title);
-            menuMap.put(title, start);
-        }
-        Log.d("Menu", drawerMenu.size() + "");
-        MenuItem mi = drawerMenu.getItem(drawerMenu.size()-1);
-        mi.setTitle(mi.getTitle());
+        student_total.setText(total_student+"/"+mArrayList.size()+"");
 
 
     }
-
 
 
 
@@ -99,7 +72,7 @@ public class AttendaceList extends AppCompatActivity implements NavigationView.O
         if (settings.getBoolean(Constants.FIRST_TIME_PREF, true)) {
             Attendance.deleteAll(Attendance.class);
             for (long i = 201301001; i <= 201301100; i++) {
-                Attendance attendance = new Attendance(i, false);
+                Attendance attendance = new Attendance(i, false,"");
                 attendance.save();
 
             }
@@ -110,19 +83,11 @@ public class AttendaceList extends AppCompatActivity implements NavigationView.O
     }
 
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.attendacelist_menu, menu);
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -138,16 +103,7 @@ public class AttendaceList extends AppCompatActivity implements NavigationView.O
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        String title = item.getTitle().toString();
-        int position = menuMap.get(title);
-        mRecyclerView.scrollToPosition(position);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
     private void getData() {
         mArrayList= new ArrayList<>(Attendance.listAll(Attendance.class));
         mAdapter.setdata(mArrayList);

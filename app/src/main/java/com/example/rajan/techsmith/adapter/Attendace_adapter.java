@@ -10,8 +10,12 @@ import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
+import com.example.rajan.techsmith.AttendaceList;
 import com.example.rajan.techsmith.R;
 import com.example.rajan.techsmith.database.Attendance;
+import com.example.rajan.techsmith.httphelper.VolleyHelper;
 
 import java.util.ArrayList;
 
@@ -20,13 +24,13 @@ import java.util.ArrayList;
  * Created by rajan on 5/6/16.
  */
 public class Attendace_adapter extends RecyclerView.Adapter<Attendace_adapter.viewholder> {
-
-    String e;
     Context context;
     ArrayList<Attendance> mArrayList;
+    ImageLoader imageLoader;
 
     public Attendace_adapter(Context context) {
         this.context = context;
+        imageLoader = VolleyHelper.getInstance(context).getImageLoader();
 
     }
 
@@ -42,6 +46,7 @@ public class Attendace_adapter extends RecyclerView.Adapter<Attendace_adapter.vi
 
         final Attendance item = mArrayList.get(position);
         holder.student_ID.setText(item.student_ID+"");
+        holder.student_IMAGE.setImageUrl(item.image,imageLoader);
         holder.student_isPresent.setChecked(item.isPresent);
 
         holder.student_isPresent.setOnClickListener(new View.OnClickListener() {
@@ -49,11 +54,15 @@ public class Attendace_adapter extends RecyclerView.Adapter<Attendace_adapter.vi
             public void onClick(View v) {
                 if(item.isPresent==true) {
                     item.isPresent = false;
+                   AttendaceList.total_student--;
+                    AttendaceList.student_total.setText(AttendaceList.total_student+"/"+mArrayList.size()+"");
                     holder.student_isPresent.setChecked(item.isPresent);
                     item.save();
                 }
                 else {
                     item.isPresent = true;
+                    AttendaceList.total_student++;
+                    AttendaceList.student_total.setText(AttendaceList.total_student+"/"+mArrayList.size()+"");
                     holder.student_isPresent.setChecked(item.isPresent);
                     item.save();
                 }
@@ -72,17 +81,18 @@ public class Attendace_adapter extends RecyclerView.Adapter<Attendace_adapter.vi
 
     class viewholder extends RecyclerView.ViewHolder{
 
-        TextView student_ID;
+        TextView student_ID,student_total;
+        NetworkImageView student_IMAGE;
         CheckBox student_isPresent;
         RelativeLayout parent;
-        Button locker;
+
         public viewholder(View itemView) {
             super(itemView);
 
             student_ID = (TextView)itemView.findViewById(R.id.student_ID);
             student_isPresent = (CheckBox) itemView.findViewById(R.id.student_isPresent);
+            student_IMAGE = (NetworkImageView)itemView.findViewById(R.id.student_IMAGE);
             parent = (RelativeLayout) itemView.findViewById(R.id.SLR_RelativeLayout);
-
         }
     }
     public void setdata(ArrayList<Attendance> arraylist) {
