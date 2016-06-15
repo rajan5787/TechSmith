@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -47,29 +48,39 @@ public class Attendace_adapter extends RecyclerView.Adapter<Attendace_adapter.vi
         final Attendance item = mArrayList.get(position);
         holder.student_ID.setText(item.student_ID+"");
         holder.student_IMAGE.setImageUrl(item.image,imageLoader);
-        holder.student_isPresent.setChecked(item.isPresent);
+        if(item.isPresent) {
+            holder.student_isPresent.setVisibility(View.VISIBLE);
+            holder.student_isCheckout.setVisibility(View.GONE);
+            holder.parent.setBackgroundResource(R.color.cartcolor2);
+        }
+        if(item.isCheckout){
+            holder.student_isPresent.setVisibility(View.GONE);
+            holder.student_isCheckout.setVisibility(View.GONE);
+            holder.parent.setBackgroundResource(R.color.cartcolor);
+
+        }
+
 
         holder.student_isPresent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(item.isPresent==true) {
-                    item.isPresent = false;
-                   AttendaceList.total_student--;
-                    AttendaceList.student_total.setText(AttendaceList.total_student+"/"+mArrayList.size()+"");
-                    holder.student_isPresent.setChecked(item.isPresent);
-                    item.save();
-                }
-                else {
-                    item.isPresent = true;
-                    AttendaceList.total_student++;
-                    AttendaceList.student_total.setText(AttendaceList.total_student+"/"+mArrayList.size()+"");
-                    holder.student_isPresent.setChecked(item.isPresent);
-                    item.save();
-                }
+                holder.student_isPresent.setVisibility(View.GONE);
+                holder.student_isCheckout.setVisibility(View.VISIBLE);
+                holder.parent.setBackgroundResource(R.color.cartcolor2);
+                item.isPresent = true;
+                item.save();
             }
         });
 
-
+        holder.student_isCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.student_isCheckout.setVisibility(View.GONE);
+                holder.parent.setBackgroundResource(R.color.cartcolor);
+                item.isCheckout = true;
+                item.save();
+            }
+        });
 
 
     }
@@ -83,16 +94,19 @@ public class Attendace_adapter extends RecyclerView.Adapter<Attendace_adapter.vi
 
         TextView student_ID,student_total;
         NetworkImageView student_IMAGE;
-        CheckBox student_isPresent;
-        RelativeLayout parent;
+        Button student_isPresent,student_isCheckout;
+        LinearLayout parent;
 
         public viewholder(View itemView) {
             super(itemView);
 
             student_ID = (TextView)itemView.findViewById(R.id.student_ID);
-            student_isPresent = (CheckBox) itemView.findViewById(R.id.student_isPresent);
+            student_isPresent = (Button) itemView.findViewById(R.id.student_isPresent);
+            student_isCheckout = (Button) itemView.findViewById(R.id.student_isCheckout);
+
             student_IMAGE = (NetworkImageView)itemView.findViewById(R.id.student_IMAGE);
-            parent = (RelativeLayout) itemView.findViewById(R.id.SLR_RelativeLayout);
+
+            parent = (LinearLayout) itemView.findViewById(R.id.linear_layout);
         }
     }
     public void setdata(ArrayList<Attendance> arraylist) {

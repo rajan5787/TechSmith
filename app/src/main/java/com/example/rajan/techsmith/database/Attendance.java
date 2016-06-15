@@ -9,13 +9,15 @@ public class Attendance extends SugarRecord {
     public long student_ID;
     public boolean isPresent;
     public String image;
+    public boolean isCheckout;
     public Attendance() {
 
     }
 
-    public Attendance(long ID, boolean isPresent,String image) {
+    public Attendance(long ID, boolean isPresent,String image,boolean isCheckout) {
         this.student_ID = ID;
         this.isPresent = isPresent;
         this.image = image;
+        this.isCheckout = isCheckout;
     }
 }

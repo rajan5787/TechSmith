@@ -72,7 +72,7 @@ public class AttendaceList extends AppCompatActivity  {
         if (settings.getBoolean(Constants.FIRST_TIME_PREF, true)) {
             Attendance.deleteAll(Attendance.class);
             for (long i = 201301001; i <= 201301100; i++) {
-                Attendance attendance = new Attendance(i, false,"");
+                Attendance attendance = new Attendance(i, false,"",false);
                 attendance.save();
 
             }

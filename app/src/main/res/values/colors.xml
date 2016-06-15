@@ -11,5 +11,6 @@
     <color name="accent">#F50056</color>
     <color name="text_primary">#FFFFFF</color>
     <color name="buttonColor">#8C9EFF</color>
-
+    <color name="cartcolor">#00e676</color>
+    <color name="cartcolor2">#b9f6ca</color>
 </resources>

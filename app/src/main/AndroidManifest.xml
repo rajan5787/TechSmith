@@ -18,11 +18,18 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <meta-data android:name="DATABASE" android:value="spc_attendancee.db" />
-        <meta-data android:name="VERSION" android:value="2" />
-        <meta-data android:name="QUERY_LOG" android:value="true" />
-        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.example.rajan.techsmith" />
+        <meta-data
+            android:name="DATABASE"
+            android:value="spc_attendancee.db" />
+        <meta-data
+            android:name="VERSION"
+            android:value="2" />
+        <meta-data
+            android:name="QUERY_LOG"
+            android:value="true" />
+        <meta-data
+            android:name="DOMAIN_PACKAGE_NAME"
+            android:value="com.example.rajan.techsmith" />
 
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -31,7 +38,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AttendaceList"></activity>
+        <activity android:name=".AttendaceList" />
+        <activity android:name=".Activities"></activity>
     </application>
 
 </manifest>
