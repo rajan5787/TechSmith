@@ -3,40 +3,85 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="#eeeeee"
     tools:context="com.example.rajan.techsmith.Activities">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="70dp"></android.support.v7.widget.Toolbar>
+        android:layout_height="70dp"
+        android:background="@color/colorPrimary">
+
+    </android.support.v7.widget.Toolbar>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="30dp">
+        android:layout_height="wrap_content"
+        android:background="#F0F0F0"
+        card_view:cardCornerRadius="4dp"
+        android:layout_margin="5dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:elevation="5dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Activity"/>
+            android:text="Activity"
+            android:elevation="5dp"/>
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
             android:hint="Eating"
-            android:id="@+id/student_ectivity"/>
+            android:id="@+id/student_ACTIVITY"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:elevation="5dp"
             android:text="Discription"/>
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:hint="Hi/She is eating apple"
-            android:id="@+id/student_discription"/>
+            android:layout_marginTop="10dp"
+            android:id="@+id/student_DISCRIPTION"/>
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/take_photo"/>
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:id="@+id/student_IMAGE"/>
         </LinearLayout>
     </android.support.v7.widget.CardView>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/student_list">
+
+    </android.support.v7.widget.RecyclerView>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/save"/>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

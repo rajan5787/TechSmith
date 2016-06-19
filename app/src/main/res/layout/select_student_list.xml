@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="100dp"
+    android:layout_height="100dp"
+    android:layout_margin="2dp"
+    android:elevation="5dp">
+<FrameLayout
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</LinearLayout>
+    <com.example.rajan.techsmith.FeedImageView
+        android:id="@+id/student_IMAGE"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:scaleType="fitXY"
+        android:visibility="visible" />
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="75dp"
+            android:background="#b5b5b5"
+            android:id="@+id/student_NAME"/>
+
+    <at.markushi.ui.CircleButton
+        android:layout_width="34dip"
+        android:layout_height="34dip"
+        android:id="@+id/student_select"
+        android:src="@drawable/ic_action_tick"
+        app:cb_color="#99CC00"
+        android:layout_gravity="right"
+        app:cb_pressedRingWidth="8dip" />
+</FrameLayout>
+
+</android.support.v7.widget.CardView>

@@ -13,15 +13,14 @@
     android:background="#EEE"
     android:orientation="horizontal" >
 
-    <com.android.volley.toolbox.NetworkImageView
+    <com.example.rajan.techsmith.FeedImageView
         android:id="@+id/student_IMAGE"
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_marginLeft="20dp"
-        android:scaleType="centerCrop"/>
-
-
-
+        android:background="@color/white"
+        android:scaleType="fitXY"
+        android:visibility="visible" />
 
     <LinearLayout
         android:layout_width="wrap_content"

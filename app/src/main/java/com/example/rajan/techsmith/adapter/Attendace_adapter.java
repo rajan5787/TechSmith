@@ -14,7 +14,9 @@ import android.widget.TextView;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.example.rajan.techsmith.AttendaceList;
+import com.example.rajan.techsmith.FeedImageView;
 import com.example.rajan.techsmith.R;
+import com.example.rajan.techsmith.app.AppController;
 import com.example.rajan.techsmith.database.Attendance;
 import com.example.rajan.techsmith.httphelper.VolleyHelper;
 
@@ -31,7 +33,7 @@ public class Attendace_adapter extends RecyclerView.Adapter<Attendace_adapter.vi
 
     public Attendace_adapter(Context context) {
         this.context = context;
-        imageLoader = VolleyHelper.getInstance(context).getImageLoader();
+        imageLoader = AppController.getInstance().getImageLoader();
 
     }
 
@@ -47,7 +49,9 @@ public class Attendace_adapter extends RecyclerView.Adapter<Attendace_adapter.vi
 
         final Attendance item = mArrayList.get(position);
         holder.student_ID.setText(item.student_ID+"");
+        holder.student_NAME.setText(item.student_name+"");
         holder.student_IMAGE.setImageUrl(item.image,imageLoader);
+
         if(item.isPresent) {
             holder.student_isPresent.setVisibility(View.VISIBLE);
             holder.student_isCheckout.setVisibility(View.GONE);
@@ -92,8 +96,8 @@ public class Attendace_adapter extends RecyclerView.Adapter<Attendace_adapter.vi
 
     class viewholder extends RecyclerView.ViewHolder{
 
-        TextView student_ID,student_total;
-        NetworkImageView student_IMAGE;
+        TextView student_ID,student_total,student_NAME;
+        FeedImageView student_IMAGE;
         Button student_isPresent,student_isCheckout;
         LinearLayout parent;
 
@@ -101,10 +105,12 @@ public class Attendace_adapter extends RecyclerView.Adapter<Attendace_adapter.vi
             super(itemView);
 
             student_ID = (TextView)itemView.findViewById(R.id.student_ID);
+            student_NAME = (TextView)itemView.findViewById(R.id.student_NAME);
+
             student_isPresent = (Button) itemView.findViewById(R.id.student_isPresent);
             student_isCheckout = (Button) itemView.findViewById(R.id.student_isCheckout);
 
-            student_IMAGE = (NetworkImageView)itemView.findViewById(R.id.student_IMAGE);
+            student_IMAGE = (FeedImageView) itemView.findViewById(R.id.student_IMAGE);
 
             parent = (LinearLayout) itemView.findViewById(R.id.linear_layout);
         }
