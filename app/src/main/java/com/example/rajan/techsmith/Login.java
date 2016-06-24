@@ -57,7 +57,8 @@ public class Login extends AppCompatActivity {
     }
 
     public boolean login(){
-        /*
+
+
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.LOGIN_URL,
                         new Response.Listener<String>() {
                             @Override
@@ -90,7 +91,7 @@ public class Login extends AppCompatActivity {
                 };
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                 requestQueue.add(stringRequest);
-                */
+
 return true;
     }
 }

@@ -61,6 +61,9 @@ Button b,c,d;
             @Override
             public void onClick(View v) {
               //  sendDatatoServer();
+
+
+                sendDataToServer();
             }
         });
     }
@@ -200,4 +203,58 @@ Button b,c,d;
         requestQueue.add(objectRequest);
 
     }*/
+String url = "";
+    public void  sendDataToServer(){
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }){
+
+            ArrayList<Student_Activity> arrayList= new ArrayList<>(Student_Activity.listAll(Student_Activity.class));
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                JSONArray jsonArray = new JSONArray();
+                final JSONObject finalobject = new JSONObject();
+                Map<String,String> map = new HashMap<String,String>();
+                for(int i=0;i<arrayList.size();i++){
+                    ArrayList<Long> arrayList1 = arrayList.get(i).students_ID;
+                    for(int j=0;j<arrayList1.size();j++){
+                        JSONObject object = new JSONObject();
+                        try {
+                            object.put(Constants.STUDENT_ID,arrayList1.get(j));
+                            object.put(Constants.STUDENT_ACTIVITY,arrayList.get(i).activityname);
+                            object.put(Constants.STUDENT_DISCRIPTION,arrayList.get(i).discription);
+                            object.put(Constants.STUDENT_PHOTO,arrayList.get(i).student_PHOTO);
+                            jsonArray.put(object);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+                try {
+                    finalobject.put(Constants.STUDENT_ACTIVITYARRAY,jsonArray);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                map.put(Constants.STUDENT_ACTIVITYSTRING,finalobject.toString());
+                return map;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(stringRequest);
+    }
 }

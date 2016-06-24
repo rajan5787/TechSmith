@@ -14,7 +14,13 @@ public class Constants {
     public static final String STUDENT_ISCHECKOUT = "";
     public static final String STUDENT_ATTENDACELIST_FINALOBJECT = "";
     public static final String STUDENT_ATTENDACELIST_ARRAY = "";
-    public static final String SENT_ATTENDACE_LIST = "SENT_ATTENDACE_LIST";
+    public static final String STUDENT_ACTIVITY = "";
+    public static final String STUDENT_DISCRIPTION = "";
+    public static final String STUDENT_PHOTO = "";
+    public static final String SENT_ATTENDACE_LIST = "";
+    public static final String STUDENT_ACTIVITYARRAY = "";
+    public static final String STUDENT_ACTIVITYSTRING = "";
+
     //urls
     public static final String LOGIN_URL = "";
     public static final String STUDENT_LIST = "";

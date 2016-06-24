@@ -11,6 +11,8 @@ public class Student_Activity extends SugarRecord {
 
     public String student_PHOTO;
     public String time;
+    public String discription;
+    public String activityname;
     public ArrayList<Long> students_ID;
 
     public Student_Activity() {
